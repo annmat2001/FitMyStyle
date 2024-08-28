@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+<div>
+    <h2>User Statistics</h2>
+    <p>Total Users: {{ total_users }}</p>
+    <p>Total Measurements: {{ total_measurements }}</p>
+    <p>Users with Measurements: {{ users_with_measurements }}</p>
+</div>
+
+<div>
+    <h2>Quick Links</h2>
+    <ul>
+        <li><a href="{% url 'admin:core_customuser_changelist' %}">Manage Users</a></li>
+        <li><a href="{% url 'admin:core_customermeasurements_changelist' %}">Manage Measurements</a></li>
+    </ul>
+</div>
+    
+</body>
+</html>

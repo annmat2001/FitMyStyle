@@ -1,0 +1,701 @@
+/*------------------------------------------------------------------
+[RTL Stylesheet]
+Theme Name:     Azedw - Clothing Shop HTML Template
+Version:        1.0.0
+Author:         wp_studio
+URL:            http://themeforest.net/user/wp_studio
+-------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------
+    #RTL-support
+------------------------------------------------------------------
+#1.1	Global
+#1.2	Hedaers
+#1.3	Heros
+#1.4	Featureds
+#1.5	Trendy
+#1.6	Page title
+#1.7	Contact Page
+#1.8	Carousel
+#1.9	Newsletter
+#1.10	Deal
+#1.11	Blog
+#1.12	About
+#1.13	404
+#1.14	My Account
+#1.15	Checkout
+#1.16	Shop
+#1.17	Footers
+-------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+#1.1	Global
+--------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;1,300&amp;display=swap');
+
+body p, body span, body div, body h1, 
+body h2, body h3, body h4, body h5 ,
+body h6, body button, body a, label{
+    font-family: 'Rubik', sans-serif!important;
+}
+
+ul {
+    padding-right: 0;
+}
+/* Global End */
+
+
+/*--------------------------------------------------------------
+#1.2	Hedaers
+--------------------------------------------------------------*/
+.header-style-1 .header-left {
+    right: 70px;
+    left: inherit;
+}
+
+.header-style-1 .header-right {
+    left: 70px;
+    right: inherit;
+}
+
+.header-style-2 .header-right {
+    right: inherit;
+    left: 20px;
+}
+
+.header-style-1 .header-right .mini-cart-content{
+    right: inherit;
+    left: 0;
+}
+
+.header-style-1 .header-right .mini-cart-content-toggle, 
+.header-style-1 .header-right .header-search-content-toggle {
+    left: 0;
+    right: inherit;
+    z-index: 999;
+}
+
+.side-info-bars > span:last-child {
+    left: 15px;
+    right: inherit;
+}
+.header-style-1 .header-left .search-area{
+    margin-left: 10px;
+    margin-right: 0;
+} 
+
+.side-info-content {
+    left: inherit;
+    right: -400px;
+}
+
+.toggle-side-info {
+    right: 0;
+    left: inherit;
+}
+
+.header-style-1 .header-right .mini-cart-content .mini-cart-item-des a {
+    text-align: revert;
+}
+
+.site-header #navbar > ul > li .sub-menu a {
+    font-weight: normal;
+}
+
+.header-search-area form button {
+    left: 15px;
+    right: inherit;
+}
+
+.header-style-2 .header-right .mini-cart-content {
+    left: 62px;
+    right: inherit;
+}
+.header-style-2 .header-right .mini-cart-content-toggle,
+.header-style-2 .header-right .header-search-content-toggle {
+    right: inherit;
+    left: 0;
+}
+
+.header-style-2 .header-right .mini-cart-content .mini-cart-item-des a {
+    text-align: revert;
+}
+
+@media screen and (min-width: 992px) {
+    .site-header #navbar > ul > li.menu-item-has-children > a:before {
+        left: 6px;
+        right: inherit;
+    }
+
+    .site-header #navbar > ul .sub-menu {
+        right: 0;
+        left: inherit;
+    }
+
+    .site-header #navbar > ul > li .sub-menu a {
+        text-align: right;
+    }
+
+    .site-header #navbar .mega-menu-list-holder{
+        padding-right: 0;
+        padding-left: 10px;
+    }
+    
+    .site-header #navbar .mega-menu-list-holder li a {
+        margin-right: -8px;
+        margin-left: inherit;
+    }
+
+    .site-header #navbar .mega-menu-content > .col {
+        float: right;
+    }
+
+    .site-header #navbar .mega-menu-box-title {
+        font-weight: bold;
+    }
+
+    .header-style-2 .navbar-header {
+        right: 15px;
+        left: inherit;
+    }
+}
+
+@media (max-width: 991px){
+    .site-header #navbar > ul .menu-item-has-children > a:after {
+        left: 15px;
+        right: inherit;
+    }
+
+    .header-style-1 .header-right {
+        left: 20px;
+    }
+
+    .header-style-2 .navbar-header .navbar-brand {
+        padding-right: 60px;
+    }
+
+    .header-style-2 .header-right .mini-cart-content-toggle, 
+    .header-style-2 .header-right .header-search-content-toggle {
+        right: inherit;
+        left: -106px;
+    }
+
+    .header-style-1 .header-right .mini-cart-content-toggle, 
+    .header-style-1 .header-right .header-search-content-toggle {
+        left: -77px;
+        right: inherit;
+    }
+}
+
+@media (max-width: 600px){
+    .header-style-1 .container-fluid, .header-style-1 ul.nav.navbar-nav {
+        justify-content: center;
+    }
+    .header-style-1 .header-right {
+        left: 10px;
+    }
+}
+/* Hedaers End */
+
+
+
+/*--------------------------------------------------------------
+#1.3	Heros
+--------------------------------------------------------------*/
+.hero-style-1 h2 {
+    text-align: right;
+}
+
+.hero-style-1 .slide-text {
+    right: 0;
+    left: inherit;
+}
+
+.hero-style-1 .container-1410 {
+    padding-right: 80px;
+    padding-left: inherit;
+}
+
+.hero-style-1 .slide-btns {
+    text-align: right;
+} 
+
+.hero-style-1 .swiper-button-next {
+    right: 25px;
+    left: auto;
+}
+
+.hero-style-1 .swiper-button-prev{
+    left: 25px;
+    right: auto;
+}
+
+.hero-style-2 .swiper-control .swiper-button-next, 
+.hero-style-2 .swiper-control .swiper-button-prev {
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.hero-style-2 .swiper-control .swiper-button-next{
+    left: 35px;
+    right: inherit;
+}
+
+.hero-style-3 .flaticon-next:before {
+    content: "\f101";
+}
+
+@media (max-width: 767px){
+    .hero-style-1 p {
+        text-align: right;
+    }
+}
+/* Heros End */
+
+
+
+/*--------------------------------------------------------------
+#1.4	Featureds
+--------------------------------------------------------------*/
+.featured-proeducts-section-s2 .shop-btn, 
+.featured-proeducts-section-s3 .shop-btn {
+    font-size: 0.8666666667rem;
+}
+
+.feature-section .features > div {
+    float: right;
+    padding-right: 70px;
+    padding-left: inherit;
+}
+
+.feature-section .features .icon {
+    right: 0;
+    left: inherit;
+}
+
+.feature-section .features .info {
+    padding-right: 20px;
+    border-right: 1px solid #dbdbdb;
+    padding-left: inherit;
+    border-left: 0;
+}
+
+.feautured-product-s3-section .details, 
+.feautured-product-s4-section .details {
+    right: 40px;
+    left: inherit;
+}
+/* featureds END  */
+
+
+
+/*--------------------------------------------------------------
+#1.5	Trendy
+--------------------------------------------------------------*/
+.trendy-product-section .owl-theme .owl-controls, .best-seller-section .owl-theme .owl-controls {
+    left: 0;
+    right: inherit;
+}
+
+.trendy-product-section .more-products, .best-seller-section .more-products {
+    left: 150px;
+    right: inherit;
+}
+
+.product-row-slider .owl-nav{
+    display: flex;
+    flex-direction: row-reverse;
+}
+/* Trendy End*/
+
+
+
+/*--------------------------------------------------------------
+#1.6	Page title
+--------------------------------------------------------------*/
+.page-title .breadcrumb > li + li:before {
+    right: -15px;
+    left: inherit;
+}
+
+.page-title .breadcrumb > li + li {
+    margin-right: 17px;
+    padding-right: 12px;
+    margin-left: inherit;
+    padding-left: inherit;
+}
+
+.page-title .breadcrumb > li + li:before {
+    content: "\e662";
+}
+/* Page title End */
+
+
+
+/*--------------------------------------------------------------
+#1.7	Contact Page
+--------------------------------------------------------------*/
+.contact-pg-section .contact-info {
+    float: right;
+}
+
+.contact-pg-section .contact-form-col {
+    float: left;
+    padding-right: 130px;
+    padding-left: inherit;
+}
+
+.contact-pg-section .contact-form-col form > div {
+    float: right;
+}
+
+select {
+    background: #fff url(../images/select-arrow.png) 25px no-repeat;
+}
+
+.contact-pg-section .contact-info li {
+    padding-right: 85px;
+    padding-left: inherit;
+}
+
+.contact-pg-section .contact-info i {
+    right: 0;
+    left: inherit;
+}
+/* Contact Page End */
+
+
+
+/*--------------------------------------------------------------
+#1.8	Carousel
+--------------------------------------------------------------*/
+.owl-stage-outer{
+    position:relative;
+    overflow:hidden;
+    -webkit-transform:translate3d(0,0,0);
+    direction: ltr;
+}
+/* Carousel End */
+
+
+
+/*--------------------------------------------------------------
+#1.9	Newsletter
+--------------------------------------------------------------*/
+.newsletter-popup-area-section .newsletter-popup-area form div button {
+    left: 0;
+    right: inherit;
+}
+/* Newsletter End */
+
+
+
+/*--------------------------------------------------------------
+#1.10	Deal
+--------------------------------------------------------------*/
+.deal-section {
+    background: url(../images/deal-rtl.html) center top/cover no-repeat local;
+}
+
+.deal-section #clock {
+    flex-direction: row-reverse;
+}
+
+@media screen and (min-width: 1200px) {
+    .deal-section {
+        margin: 0 100px 110px 0;
+    }
+}
+/* Deal End  */
+
+
+
+/*--------------------------------------------------------------
+#1.11	Blog
+--------------------------------------------------------------*/
+.blog-section .entry-details .entry-meta > div {
+    float: right;
+}
+
+.blog-section .entry-details .entry-meta > div:last-child {
+    margin-right: 25px;
+    margin-left: inherit;
+}
+
+.blog-section .entry-details .entry-meta > div:last-child:before {
+    right: -14px;
+    left: inherit;
+}
+
+.flaticon-next:before {
+    content: "\f100";
+}
+
+.blog-sidebar .search-widget form button {
+    left: 15px;
+    right: inherit;
+}
+
+.blog-sidebar .recent-post-widget .post .img-holder {
+    float: right;
+}
+
+.blog-sidebar .tag-widget ul li {
+    float: right;
+    margin: 0 0 7px 10px;
+}
+
+.blog-pg-section .entry-details .entry-meta > div {
+    float: right;
+}
+
+.blog-pg-section .entry-details .entry-meta > div:last-child {
+    margin-left: inherit;
+    margin-right: 25px;
+}
+
+.blog-pg-section .entry-details .entry-meta > div:last-child:before {
+    right: -14px;
+    left: inherit;
+}
+
+.read-more .flaticon-next:before {
+    content: "\f100";
+}
+
+.blog-single-section .entry-meta > div:last-child {
+    margin-left: inherit;
+    margin-right: 25px;
+}
+
+.blog-single-section .entry-meta > div {
+    float: right;
+}
+
+.blog-single-section .entry-meta > div:last-child:before {
+    top: 2px;
+    right: -14px;
+}
+
+.blog-single-section .post blockquote:before {
+    right: 30px;
+    left: inherit;
+}
+
+.blog-single-section .post blockquote {
+    padding: 40px 100px 40px 50px;
+}
+
+.blog-single-section .author-box .author-avatar {
+    float: right;
+}
+
+.blog-single-section .author-box .author-content {
+    padding-left: inherit;
+    padding-right: 25px;
+}
+
+.blog-single-section .share ul {
+    padding-left: inherit;
+    padding-right: 25px;
+}
+
+.blog-single-section .more-posts .previous-post {
+    text-align: left;
+}
+
+.pagination-wrapper .pg-pagination li {
+    float: right;
+}
+
+.pagination-wrapper .flaticon-back:before {
+    content: "\f101";
+}
+
+@media screen and (min-width: 1200px){
+    .blog-section .post h3 {
+        padding-left: 45px;
+        padding-right: inherit;
+    }
+}
+/* Blog End*/
+
+
+
+/*--------------------------------------------------------------
+#1.12	About
+--------------------------------------------------------------*/
+.about-section .about-area .info {
+    right: 0;
+    left: inherit;
+}
+.about-section .about-area .img-holder{
+    text-align: left;
+}
+.testimonials-section {
+    background: url(../images/testimonials-rtl.html) center top/cover no-repeat local;
+}
+.section-title-s4 {
+    text-align: right;
+}
+/* About End */
+
+
+
+/*--------------------------------------------------------------
+#1.13	404
+--------------------------------------------------------------*/
+.error-404-pg:before {
+    left: 215px;
+    right: inherit;
+    width: 300px;
+    height: 419px;
+}
+
+/* 404 END */
+
+
+
+/*--------------------------------------------------------------
+#1.14	My Account 
+--------------------------------------------------------------*/
+.my-account-section .woocommerce-form.woocommerce-form-login, 
+.my-account-section .woocommerce-form.woocommerce-form-register.register{
+    text-align: right;
+}
+
+.my-account-section label {
+    position: relative;
+}
+
+.my-account-section .woocommerce-form__input-checkbox + span {
+    padding-left: inherit;
+    padding-right: 25px;
+}
+
+.my-account-section .woocommerce-form__input-checkbox {
+    right: 15px;
+}
+
+@media screen and (min-width: 992px){
+
+    .my-account-section .woocommerce-LostPassword.lost_password {
+        left: 50px;
+        right: inherit;
+    }
+}
+/* My Account End */
+
+
+
+/*--------------------------------------------------------------
+#1.15	Checkout
+--------------------------------------------------------------*/
+.shop_table thead tr th:first-child {
+    text-align: right;
+}
+
+.woocommerce table.shop_table th, 
+.woocommerce table.shop_table td {
+    text-align: right;
+}
+/* Checkout End */
+
+
+
+/*--------------------------------------------------------------
+#1.16	Shop
+--------------------------------------------------------------*/
+.shop-section .woocommerce-toolbar-top select {
+    background-position: calc(15px) 15px;
+}
+
+.shop-section .products.list-view .product-info {
+    text-align: right;
+    padding-right: 40px;
+    padding-left: inherit;
+}
+
+.shop-sidebar .search-widget form button {
+    left: 15px;
+    right: inherit;
+}
+
+.shop-sidebar .widget_price_filter .filter-price p {
+    right: 148px;
+    left: inherit;
+}
+
+.shop-sidebar .widget_product_tag_cloud .tagcloud a {
+    float: right;
+    margin: 0 0px 8px 8px;
+}
+
+.shop-single-section .product-details {
+    padding: 50px 0 93px 30px;
+}
+
+.shop-single-slider .slick-list{
+    direction: ltr;
+}
+
+.shop-single-section .single-product-info .tab-content {
+    text-align: right;
+}
+
+.shop-single-section .single-product-info .client-rv .client-pic {
+    float: right;
+}
+
+.shop-single-section .single-product-info .client-rv .details {
+    float: left;
+}
+
+.shop-single-section .rating-wrapper{
+    text-align: left;
+}
+
+.shop-single-section .single-product-info .review-form form .rating a:last-child {
+    margin-right: 10px;
+}
+
+.shop-single-section .thb-product-meta-before .add-to-wishlist i {
+    padding-right: 0;
+    padding-left: 3px;
+}
+
+.shop-single-section .product-details .product-option .product-row > div {
+    float: right;
+}
+
+.shop-single-section .product-details .product-option .product-count {
+    border-left: 0;
+    border-right: 1px solid #e6e5e5;
+}
+
+.shop-single-section .product-details .product-option .product-row > div + div {
+    margin-left: inherit;
+    margin-right: 15px;
+}
+/* Shop End*/
+
+
+
+/*--------------------------------------------------------------
+#1.17	Footers
+--------------------------------------------------------------*/
+.site-footer .newsletter-widget form button {
+    left: 0;
+    right: inherit;
+}
+
+.site-footer .widget h3 {
+    font-weight: 500;
+}
+
+.site-footer .lower-footer p{
+    text-align: left;
+}
+/* Footers End */

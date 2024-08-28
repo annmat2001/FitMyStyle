@@ -1,0 +1,469 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMyStyle - Custom Order</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        header {
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 30px;
+            font-size: 1.1rem;
+        }
+
+        .center-icon {
+            font-size: 28px;
+            margin: 0 30px;
+        }
+
+        .user-icon {
+            font-size: 28px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .show {
+            display: block;
+        }
+
+        main {
+            padding: 60px 0;
+            flex-grow: 1;
+        }
+
+       
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #2c3e50;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            padding-left: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        h1 .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            animation: letter-animation 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes letter-animation {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+                color: #3498db;
+            }
+            60% {
+                color: #e74c3c;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                color: #2c3e50;
+            }
+        }
+
+       
+
+        h2 {
+            font-family: 'Georgia', serif;
+            font-size: 2.2rem;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            color: #34495e;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .play-button::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid white;
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+        }
+
+        video {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-item label {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-item input,
+        .form-item select,
+        .form-item textarea {
+            background-color: #f1f3f5;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-item input:focus,
+        .form-item select:focus,
+        .form-item textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .description-box {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: #555;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-width: 250px;
+            top: 100%;
+            left: 0;
+        }
+
+        .form-item:hover .description-box {
+            display: block;
+        }
+
+        .submit-button {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin: 50px auto;
+            background-color: #32383e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #070b0e;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <nav>
+                <a href="{% url 'core:home' %}">Home</a>
+                <a href="{% url 'core:contact' %}">Contact-Us</a>
+                <a class="navbar-brand hidden-sm" href="{% url 'core:home' %}">
+                    <img src="{% static 'assets/images/icons/BRANDICON.png' %}" alt="" style="width: 70px; height: auto;">
+                </a>
+                <a href="{% url 'core:blog' %}">Blog</a>
+                <a href="{% url 'core:about' %}">About</a>
+            </nav>
+            <div class="user-icon" id="userIcon">👤
+                <div class="dropdown" id="userDropdown">
+                    <a href="{% url 'core:user_page' %}" style="font-size: small;">Profile</a>
+                    <a href="{% url 'core:logout' %}" style="font-size: small;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+       
+        
+        <form id="orderForm" method="post" action="{% url 'core:submit_measurements' %}">
+            {% csrf_token %}
+            <h2></h2>
+            
+            <div class="video-container" id="videoContainer">
+                <img src="{% static 'assets/images/icons/measurement_thumbnail.png' %}" alt="Video thumbnail" class="video-thumbnail" id="videoThumbnail">
+                <button class="play-button" id="playButton"></button>
+                <video id="videoPlayer" controls>
+                    <source src="{% static 'assets/images/icons/measurement_video.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        
+            <h2>Enter Measurements</h2>
+            <div class="form-grid">
+                <div class="form-item">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" id="height" min="50" max="250" step="0.1" name="height" placeholder="Enter height" required>
+                    <div class="description-box">Measure from the top of your head to the floor while standing straight.</div>
+                </div>
+                <div class="form-item">
+                    <label for="torso">Torso (cm)</label>
+                    <input type="number" id="torso" min="20" max="100" step="0.1" name="torso" placeholder="Enter torso size" required>
+                    <div class="description-box">Measure from the back of the neck to your waist.</div>
+                </div>
+                <div class="form-item">
+                    <label for="chest">Chest (cm)</label>
+                    <input type="number" id="chest" name="chest" placeholder="Enter chest size" required>
+                    <div class="description-box">Measure around the fullest part of your chest, keeping the tape horizontal.</div>
+                </div>
+                <div class="form-item">
+                    <label for="waist">Waist (cm)</label>
+                    <input type="number" id="waist" name="waist" placeholder="Enter waist size" required>
+                    <div class="description-box">Measure around your natural waistline, above your belly button.</div>
+                </div>
+                <div class="form-item">
+                    <label for="neck">Neck (cm)</label>
+                    <input type="number" id="neck" name="neck" placeholder="Enter neck size" required>
+                    <div class="description-box">Measure around the base of your neck, where a collar would sit.</div>
+                </div>
+                <div class="form-item">
+                    <label for="sleeve">Sleeve (cm)</label>
+                    <input type="number" id="sleeve" name="sleeve" placeholder="Enter sleeve length" required>
+                    <div class="description-box">Measure from your shoulder to your wrist with your arm slightly bent.</div>
+                </div>
+                <div class="form-item">
+                    <label for="inseam">Inseam (cm)</label>
+                    <input type="number" id="inseam" name="inseam" placeholder="Enter inseam length" required>
+                    <div class="description-box">Measure from your crotch to the bottom of your ankle.</div>
+                </div>
+                <div class="form-item">
+                    <label for="hip">Hip (cm)</label>
+                    <input type="number" id="hip" name="hip" placeholder="Enter hip size" required>
+                    <div class="description-box">Measure around the fullest part of your hips and buttocks.</div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">SUBMIT</button>
+        </form>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">FitMyStyle</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="{% url 'core:contact' %}">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Video player functionality
+        const videoContainer = document.getElementById('videoContainer');
+        const videoThumbnail = document.getElementById('videoThumbnail');
+        const playButton = document.getElementById('playButton');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        playButton.addEventListener('click', () => {
+            videoThumbnail.style.display = 'none';
+            playButton.style.display = 'none';
+            videoPlayer.style.display = 'block';
+            videoPlayer.play();
+        });
+
+        // User dropdown functionality
+        const userIcon = document.getElementById('userIcon');
+        const userDropdown = document.getElementById('userDropdown');
+
+        userIcon.addEventListener('click', function() {
+            userDropdown.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.user-icon')) {
+                if (userDropdown.classList.contains('show')) {
+                    userDropdown.classList.remove('show');
+                }
+            }
+        });
+
+        // Form validation
+        const orderForm = document.getElementById('orderForm');
+        const deliveryDateInput = document.getElementById('deliveryDate');
+
+        // Set minimum date for delivery (tomorrow)
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        deliveryDateInput.min = tomorrow.toISOString().split('T')[0];
+
+        orderForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Validate measurements
+            const measurements = ['height', 'torso', 'chest', 'waist', 'neck', 'sleeve', 'inseam', 'hip'];
+            let isValid = true;
+
+            measurements.forEach(measurement => {
+                const input = document.getElementById(measurement);
+                if (isNaN(input.value) || input.value <= 0) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '#ced4da';
+                }
+            });
+
+            // Validate delivery date
+            const selectedDate = new Date(deliveryDateInput.value);
+            if (selectedDate <= new Date()) {
+                isValid = false;
+                deliveryDateInput.style.borderColor = 'red';
+            } else {
+                deliveryDateInput.style.borderColor = '#ced4da';
+            }
+
+            if (isValid) {
+                alert('Order submitted successfully!');
+                // Here you would typically send the form data to a server
+            } else {
+                alert('Please correct the highlighted fields.');
+            }
+        });
+    </script>
+</body>
+</html>

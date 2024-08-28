@@ -1,0 +1,519 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMyStyle - User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 30px;
+            font-size: 1.1rem;
+        }
+
+        .center-icon {
+            font-size: 28px;
+            margin: 0 30px;
+        }
+
+        .user-icon {
+            font-size: 28px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            flex-grow: 1;
+        }
+        .custom-link {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color from the parent element */
+}
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .main-content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-pic-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        .upload-overlay:hover {
+            opacity: 1;
+        }
+        .upload-icon {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .upload-text {
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+        h1, h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-weight: 500;
+        }
+        .user-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .stat-box strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .buttons {
+            text-align: right;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: #f0f0f0;
+            color: #333;
+            margin-right: 10px;
+        }
+        .btn-danger {
+            background-color: #222e22;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .sidebar-item {
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: #f0f0f0;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            .main-content {
+                width: 100%;
+            }
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <nav>
+                <a href="{% url 'core:home' %}">Home</a>
+                <a href="{% url 'core:contact' %}">Contact-Us</a>
+                <a class="navbar-brand hidden-sm" href="{% url 'core:home' %}">
+                    <img src="{% static 'assets/images/icons/BRANDICON.png' %}" alt="" style="width: 70px; height: auto;">
+                </a>
+                <a href="{% url 'core:blog' %}">Blog</a>
+                <a href="{% url 'core:about' %}">About</a>
+            </nav>
+            <div class="user-icon" id="userIcon">👤
+                <div class="dropdown" id="userDropdown">
+                    
+                    <a href="{% url 'core:logout' %}" style="font-size: small;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="sidebar">
+                <div class="user-info">
+                    <!-- <img src="https://via.placeholder.com/50" alt="User Avatar" class="user-avatar" id="sidebar-avatar"> -->
+                    <div>
+                        
+                        <!-- <div>Member since </div> -->
+                    </div>
+                </div>
+                <div class="sidebar-item active"><a href="#" class="custom-link">Dashboard</a></div>
+                <div class="sidebar-item">
+                    {% if has_measurements %}
+                        <a href="{% url 'core:edit_measurements' %}" class="custom-link">Edit My Measurements</a>
+                    {% else %}
+                        <a href="{% url 'core:submit_measurements' %}" class="custom-link">My Measurements</a>
+                    {% endif %}
+                </div>
+                <div class="sidebar-item"><a href="order.html" class="custom-link">Place an Order</a></div>
+                <div class="sidebar-item"><a href=# class="custom-link">Rewards</a></div>
+                <div class="sidebar-item"><a href=# class="custom-link">Orders</a></div>
+                <div class="sidebar-item"><a href=# class="custom-link">FAQs</a></div>
+                <div class="sidebar-item"><a href=# class="custom-link">Terms of Use</a></div>
+                <div class="sidebar-item"><a href=# class="custom-link">Privacy Policy</a></div>
+            </div>
+            <div class="main-content">
+                <h1>My Profile</h1>
+                <div class="profile-header">
+                    <div class="profile-pic-container">
+                        {% if user.profile_picture %}
+                        <img src="{{ user.get_profile_picture_url }}" alt="Profile Picture" class="profile-pic" id="profile-pic">
+                        {% else %}
+                        <p>No profile picture uploaded</p>
+                        {% endif %}
+                        <div class="upload-overlay" id="upload-overlay">
+                            <span class="upload-icon">📷</span>
+                            <span class="upload-text">Upload Picture</span>
+                        </div>
+                        <input type="file" id="file-input" style="display: none;" accept="image/*">
+                    </div>
+                    <div>
+                        <h2>{{ user.get_full_name }}</h2>
+                        <p>Email: {{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="user-details">
+                    <div class="info-box">
+                        <strong id="phone">{{ user.phone_number|default:'Not provided' }}</strong>
+                        <div>Mobile</div>
+                    </div>
+                    <div class="info-box">
+                        <strong id="birthdate">{{ user.birth_date|date:"d M, Y"|default:'Not provided' }}</strong>
+                        <div>Birth date</div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong id="city">{{ user.city|default:'Not provided' }}</strong>
+                        <div>City</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-box enlargeable">
+                        <strong>0</strong>
+                        <div>All Orders</div>
+                    </div>
+                    <div class="stat-box enlargeable">
+                        <strong>0</strong>
+                        <div>My Enquiry</div>
+                    </div>
+                    
+                    <div class="stat-box enlargeable">
+                        <strong>0</strong>
+                        <div>Awaiting Shipment</div>
+                    </div>
+                    <div class="stat-box enlargeable">
+                        <strong>0</strong>
+                        <div>Awaiting Delivery</div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <a href="{% url 'core:edit_user_details' %}" class="btn btn-primary">EDIT PROFILE</a>
+                    <button class="btn btn-danger">DELETE YOUR ACCOUNT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">FitMyStyle</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="{% url 'core:contact' %}">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        // User dropdown functionality
+        const userIcon = document.getElementById('userIcon');
+        const userDropdown = document.getElementById('userDropdown');
+
+        userIcon.addEventListener('click', function() {
+            userDropdown.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.user-icon')) {
+                if (userDropdown.classList.contains('show')) {
+                    userDropdown.classList.remove('show');
+                }
+            }
+        });
+
+        // Image upload functionality
+        const uploadOverlay = document.getElementById('upload-overlay');
+        const fileInput = document.getElementById('file-input');
+        const profilePic = document.getElementById('profile-pic');
+
+        uploadOverlay.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('profile_picture', file);
+
+            fetch('{% url "core:update_profile_picture" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    profilePic.src = data.image_url;
+                } else {
+                    alert('Failed to upload image. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+    });
+
+        // Delete account functionality
+        const deleteAccountBtn = document.getElementById('delete-account');
+        deleteAccountBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                fetch('{% url "core:delete_account" %}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Your account has been deleted. You will be redirected to the homepage.');
+                        window.location.href = '{% url "core:home" %}';
+                    } else {
+                        alert('Failed to delete account. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        });
+
+        // Hover effect for specific stat boxes
+        const enlargeableBoxes = document.querySelectorAll('.enlargeable');
+
+        enlargeableBoxes.forEach(box => {
+            box.addEventListener('mouseenter', () => {
+                box.style.transform = 'scale(1.05)';
+                box.style.transition = 'transform 0.3s ease';
+            });
+
+            box.addEventListener('mouseleave', () => {
+                box.style.transform = 'scale(1)';
+            });
+        });
+
+    </script>
+</body>
+</html>

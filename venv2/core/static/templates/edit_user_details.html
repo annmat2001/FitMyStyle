@@ -1,0 +1,402 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile </title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            height: 100%;
+            color: #333;
+        }
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            /* background-color: #8e44ad; */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-half {
+            background: linear-gradient(135deg, #bdbec2, #a6a6b3);
+            padding: 40px 20px;
+        }
+        .bottom-half {
+            background-color: white;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .profile-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .profile-content {
+            display: flex;
+            gap: 30px;
+        }
+        .profile-image {
+            flex: 0 0 150px;
+            text-align: center;
+        }
+        .profile-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .profile-details {
+            flex: 1;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #f0f0f0;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #3d3640;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #f1f1f1;
+            color: #414040;
+        }
+        .image-upload-btns {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        #success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        header {
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 30px;
+            font-size: 1.1rem;
+        }
+
+        .center-icon {
+            font-size: 28px;
+            margin: 0 30px;
+        }
+        .custom-link {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherits the color from the parent element */
+}
+
+        .user-icon {
+            font-size: 28px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            padding: 10px 0;
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 8px 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .show {
+            display: block;
+        }
+
+        footer {
+            background-color: #24282d;
+            color: white;
+            padding: 30px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container header-content">
+                <nav>
+                    <a href="{% url 'core:home' %}">Home</a>
+                    <a href="contact.html">Contact-Us</a>
+                    <a class="navbar-brand hidden-sm" href="{% url 'core:home' %}">
+                        <img src="{% static 'assets/images/icons/BRANDICON.png' %}" alt="" style="width: 70px; height: auto;">
+                    </a>
+                    <a href=#>Blog</a>
+                    <a href="about.html">About</a>
+                </nav>
+                <div class="user-icon" id="userIcon">👤
+                    <div class="dropdown" id="userDropdown">
+                        <a href="{% url 'core:user_page' %}" style="font-size: small;">Profile</a>
+                        <a href="#" style="font-size: small;">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="top-half">
+                <div class="container">
+                    <div class="profile-card">
+                        <h2>Edit Profile</h2>
+                        <form id="edit-profile-form" class="profile-content" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="profile-image">
+                                <img id="profile-picture" src="/api/placeholder/150/150" alt="Profile Picture">
+                                <div class="image-upload-btns">
+                                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                                    <label for="image-upload" class="btn btn-secondary">Add Picture</label>
+                                    <button type="button" id="remove-picture" class="btn btn-secondary">Remove</button>
+                                </div>
+                            </div>
+                            <div class="profile-details">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" value="{{ user.get_full_name }}">
+                                    <div class="error" id="name-error"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" value="{{ user.phone_number }}">
+                                    <div class="error" id="phone-error"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" value="{{ user.city }}">
+                                    <div class="error" id="city-error"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pincode">Pincode</label>
+                                    <input type="text" id="pincode" name="pincode" value="{{ user.pincode }}">
+                                    <div class="error" id="pincode-error"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <textarea id="address" name="address">{{ user.address }}</textarea>
+                                    <div class="error" id="address-error"></div>
+                                </div>
+                                <div class="button-group">
+                                    <button type="button" id="discard-changes" class="btn btn-secondary"><a href="{% url 'core:user_page' %}"class="custom-link">Discard Changes</button></a>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="success-message">Profile updated successfully!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-half"></div>
+        </div>
+        
+        
+            <footer>
+                <div class="container footer-content">
+                    <div class="footer-logo">FitMyStyle</div>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
+            </footer>
+        
+    </div>
+
+    <script>
+        const imageUpload = document.getElementById('image-upload');
+        const profilePicture = document.getElementById('profile-picture');
+        const removePicture = document.getElementById('remove-picture');
+        const form = document.getElementById('edit-profile-form');
+        const successMessage = document.getElementById('success-message');
+
+        imageUpload.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    profilePicture.src = event.target.result;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        removePicture.addEventListener('click', function() {
+            profilePicture.src = '/api/placeholder/150/150';
+            imageUpload.value = '';
+        });
+
+        function validateInput(input, regex, errorMessage) {
+            const error = document.getElementById(`${input.id}-error`);
+            if (input.value.trim() === '') {
+                error.textContent = '';
+                return true; // Empty is allowed, will use existing data
+            }
+            if (!regex.test(input.value.trim())) {
+                error.textContent = errorMessage;
+                return false;
+            }
+            error.textContent = '';
+            return true;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            const name = document.getElementById('name');
+            isValid &= validateInput(name, /^[a-zA-Z\s]+$/, 'Full name should only contain letters and spaces');    
+            const phone = document.getElementById('phone');
+            isValid &= validateInput(phone, /^\d{10}$/, 'Phone number should be 10 digits');
+            const city = document.getElementById('city');
+            isValid &= validateInput(city, /^[a-zA-Z\s]+$/, 'City should only contain letters and spaces');
+            const pincode = document.getElementById('pincode');
+            isValid &= validateInput(pincode, /^\d{6}$/, 'Pincode should be 6 digits');
+            const address = document.getElementById('address');
+            if (address.value.trim() !== '' && address.value.trim().length < 5) {
+                document.getElementById('address-error').textContent = 'Address should be at least 5 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('address-error').textContent = '';
+            }
+
+            if (isValid) {
+                this.submit(); // Submit the form if all validations pass
+            }
+        });
+        // User dropdown functionality
+        const userIcon = document.getElementById('userIcon');
+        const userDropdown = document.getElementById('userDropdown');
+
+        userIcon.addEventListener('click', function() {
+            userDropdown.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.user-icon')) {
+                if (userDropdown.classList.contains('show')) {
+                    userDropdown.classList.remove('show');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

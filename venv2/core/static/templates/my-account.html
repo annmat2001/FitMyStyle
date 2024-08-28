@@ -1,0 +1,566 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="irstheme">
+    <title>Register and Login</title>
+
+    <!-- Stylesheets -->
+    <link href="{% static 'assets/css/themify-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/icomoon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/pe-icon-7-stroke.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/flaticon.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/owl.theme.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/slick-theme.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/swiper.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/owl.transitions.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/jquery.fancybox.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+<style>
+  .my-account-section .form-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    perspective: 1000px;
+  }
+  
+  .my-account-section .form-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .my-account-section .toggle-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .my-account-section .toggle-button:hover {
+    background-color: #555;
+  }
+  
+  .my-account-section .form-content {
+    display: none;
+    transform: rotateY(90deg);
+    transition: transform 0.6s, opacity 0.6s;
+    opacity: 0;
+  }
+  
+  .my-account-section .form-content.active-form {
+    display: block;
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  
+  .animation-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200%;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 0.6s;
+    transform-origin: center;
+  }
+  
+  .animation {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    transform: rotate(0deg);
+    transition: transform 0.6s;
+  }
+  
+  .my-account-section.show-register .animation-container {
+    transform: rotate(180deg);
+  }
+  
+  .register-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  </style>
+  
+  
+  <script>
+    function showLogin() {
+      const section = document.querySelector('.my-account-section');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const loginToggle = document.getElementById('login-toggle');
+      const registerToggle = document.getElementById('register-toggle');
+      
+      loginForm.classList.add('active-form');
+      registerForm.classList.remove('active-form');
+      loginToggle.style.display = 'none';
+      registerToggle.style.display = 'block';
+      section.classList.remove('show-register');
+    }
+    
+    function showRegister() {
+      const section = document.querySelector('.my-account-section');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const loginToggle = document.getElementById('login-toggle');
+      const registerToggle = document.getElementById('register-toggle');
+      
+      loginForm.classList.remove('active-form');
+      registerForm.classList.add('active-form');
+      loginToggle.style.display = 'block';
+      registerToggle.style.display = 'none';
+      section.classList.add('show-register');
+    }
+    
+    // Initialize the form view
+    document.addEventListener('DOMContentLoaded', () => {
+      showLogin();
+    });
+    </script>
+</head>
+<body>
+<!-- start page-wrapper -->
+<div class=page-wrapper>
+<div class=body-overlay></div>
+<!-- start preloader -->
+<div class=preloader>
+<div class=sk-chase>
+<div class=sk-chase-dot></div>
+<div class=sk-chase-dot></div>
+<div class=sk-chase-dot></div>
+<div class=sk-chase-dot></div>
+<div class=sk-chase-dot></div>
+<div class=sk-chase-dot></div>
+</div>
+</div>
+<!-- end preloader -->
+<!-- Start header -->
+<header id=header class="site-header header-style-1">
+  <div class=topbar>
+  <div class=topbar-text>
+  <p>Join our showroom and get 25 % off ! Coupon code : First25</p>
+  </div>
+  </div> <!-- end topbar -->
+  <nav class="navigation navbar navbar-default">
+  <div class=container-fluid>
+  <div class=navbar-header>
+  <button type=button class=open-btn>
+  <span class=sr-only>Toggle navigation</span>
+  <span class=icon-bar></span>
+  <span class=icon-bar></span>
+  <span class=icon-bar></span>
+  </button>
+  <a class="navbar-brand" href="{% url 'core:home' %}">
+    <img src="{% static 'assets/images/icons/BRANDICON.png' %}" alt="Brand Icon">
+</a>
+
+  </div>
+  <div class=header-left>
+  <div class=side-info-bars>
+  <span></span>
+  <span></span>
+  <span></span>
+  </div>
+  <div class=side-info-content>
+  <button class="btn side-info-close-btn"><i class=ti-close></i></button>
+  <div class=logo>
+  <img src="{% static 'assets/images/icons/BRANDICON.png' %}" alt>
+  </div>
+  <div class=text>
+  
+  <ul class=info>
+  <li>Contact us: +917907340180</li>
+  <!-- <li>Mail us: <a href="https://template.fullstackdeveloper.co.il/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c69636d7e684c6b616d6560226f6361">[email&#160;protected]</a></li> -->
+  </ul>
+  <ul class=social-links>
+  <li><a href="#"><i class=ti-facebook></i></a></li>
+  <li><a href="#"><i class=ti-twitter-alt></i></a></li>
+  <li><a href="#"><i class=ti-pinterest></i></a></li>
+  <li><a href="#"><i class=ti-vimeo-alt></i></a></li>
+  </ul>
+  </div>
+  </div>
+  <div class=search-area>
+  <form>
+  
+  </form>
+  </div>
+  </div>
+  <div id=navbar class="navbar-collapse collapse navigation-holder">
+  <button class=close-navbar><i class=ti-close></i></button>
+  <ul class="nav navbar-nav">
+  
+  <li><a href="{% url 'core:home' %}">Home</a></li>
+  <ul class=sub-menu>
+  <li><a href="{% url 'core:home' %}">Home Default</a></li>
+  <li><a href=index-2.html>Home style 2</a></li>
+  <li><a href=index-3.html>Home style 3</a></li>
+  <li><a href=index-4.html>Home style 4</a></li>
+  <li><a href=index-5.html>Home style 5</a></li>
+  <li><a href=index-6.html>Home style 6</a></li>
+  </ul>
+  </li>
+  <li ><a href="{% static 'about.html'}">About</a></li>
+  <li class="menu-item-has-children has-mega-menu">
+  
+  <ul class=mega-menu>
+  <li>
+  <div class=mega-menu-content>
+  <div class="col col-5">
+  <span class=mega-menu-box-title>Shop style</span>
+  <ul class=mega-menu-list-holder>
+  <li><a href=shop.html>Shop left sidebar</a></li>
+  <li><a href=shop-right-sidebar.html>Shop right sidebar</a></li>
+  <li><a href=shop-2.html>Shop full width</a></li>
+  </ul>
+  </div>
+  <div class="col col-5">
+  <span class=mega-menu-box-title>Shop single</span>
+  <ul class=mega-menu-list-holder>
+  <li><a href=shop-single.html>Horizental thumbnail</a></li>
+  <li><a href=shop-single-vertical-thumbnail.html>Vertical thumbnail</a></li>
+  </ul>
+  </div>
+  <div class="col col-5">
+  <span class=mega-menu-box-title>Product style</span>
+  <ul class=mega-menu-list-holder>
+  <li><a href=shop.html>Product style 1</a></li>
+  <li><a href=shop-right-sidebar.html>Product style 2</a></li>
+  <li><a href=shop-2.html>Product style 3</a></li>
+  </ul>
+  </div>
+  <div class="col col-5">
+  <span class=mega-menu-box-title>Other pages</span>
+  <ul class=mega-menu-list-holder>
+  <li><a href=cart.html>Cart</a></li>
+  <li><a href=checkout.html>Checkout</a></li>
+  <li><a href=my-account.html>My account</a></li>
+  </ul>
+  </div>
+  <div class="col col-5">
+  <span class=mega-menu-box-title>Other pages</span>
+  <ul class=mega-menu-list-holder>
+  <li><a href=cart.html>Cart</a></li>
+  <li><a href=checkout.html>Checkout</a></li>
+  <li><a href=my-account.html>My account</a></li>
+  </ul>
+  </div>
+  </div>
+  </li>
+  </ul>
+  </li>
+  
+  <li><a href="blog-single.html">Blog</a></li>
+  <ul class=sub-menu>
+  
+  </ul>
+  </li>
+  <li><a href=contact.html>Contact</a></li>
+  </ul>
+  </div><!-- end of nav-collapse -->
+  <div class=header-right>
+  <div class=my-account-link>
+  <a href="{% url 'core:user_page' %}"><i class=icon-user></i></a>
+  </div>
+  <div class=wishlist-box>
+  
+  </div>
+  <div class=mini-cart>
+  
+  <div class=mini-cart-content>
+  <div class=mini-cart-items>
+  <div class="mini-cart-item clearfix">
+  <div class=mini-cart-item-image>
+  
+  
+  
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  </div><!-- end of container -->
+  </nav>
+  </header>
+  <!-- end of header -->
+<!-- start page-title -->
+<section class=page-title>
+<div class=page-title-container>
+<div class=page-title-wrapper>
+<div class=container>
+<div class=row>
+<div class="col col-xs-12">
+<h2>My account</h2>
+<ol class=breadcrumb>
+<li><a href="{% url 'core:home' %}">Home</a></li>
+<li>My account</li>
+</ol>
+</div>
+</div> <!-- end row -->
+</div> <!-- end container -->
+</div>
+</div>
+</section>
+<!-- end page-title -->
+
+
+
+
+
+
+<!-- start my-account-section -->
+<section class="my-account-section">
+  <div class="container-1410">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="woocommerce">
+          <div class="woocommerce-notices-wrapper"></div>
+          <div class="u-columns col2-set" id="customer_login">
+            <div class="form-container">
+              <br>
+              <div class="form-toggle">
+                <button id="login-toggle" class="toggle-button" onclick="showLogin()">Login</button>
+                <button id="register-toggle" class="toggle-button" onclick="showRegister()">Register</button>
+              </div>
+              <div id="login-form" class="form-content active-form">
+                <h2>Login</h2>
+                <form class="woocommerce-form woocommerce-form-login login" method="post" action="{% url 'core:login_view' %}">
+                  {% csrf_token %}
+                  <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                    <label for="username">Email Address&nbsp;<span class="required">*</span></label>
+                    <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="email" autocomplete="username" />
+                  </p>
+                  <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                    <label for="password">Password&nbsp;<span class="required">*</span></label>
+                    <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
+                  </p>
+                  {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+                  {% endif %}
+                  <p class="form-row">
+                    <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="f0e969fd27" />
+                    <input type="hidden" name="_wp_http_referer" value="/my-account/" />
+                    <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Log in">Log in</button>
+                  </p>
+                  <!-- <p class="woocommerce-LostPassword lost_password">
+                    <a href="http://proffer.themegeniuslab.com/my-account/lost-password/">Lost your password?</a>
+                  </p> -->
+                </form>
+              </div>
+              <div id="register-form" class="form-content">
+                <h2>Register</h2>
+                <form method="post" class="woocommerce-form woocommerce-form-register register" action="{% url 'core:register' %}">
+                  {% csrf_token %}
+                  
+                  <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                    <label for="reg_email">Email address&nbsp;<span class="required">*</span></label>
+                    <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="{{ register_email|default:'' }}"/>
+                  </p>
+                  <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                    <label for="password">Password&nbsp;<span class="required">*</span></label>
+                    <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                  </p>
+                  <p class="form-row">
+                    <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="f0e969fd27" />
+                    <input type="hidden" name="_wp_http_referer" value="/my-account/" />
+                    <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="Register" value="Register">Register</button>
+                  </p>
+                  <!-- <p>A password will be sent to your email address.</p>
+                  <div class="woocommerce-privacy-policy-text">
+                    <p>Your personal data will be used to support your experience throughout this website and  to manage access to your account</p>
+                  </div> -->
+                  <!-- <p class="woocommerce-form-row form-row">
+                    <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="2361821e0b" />
+                    <input type="hidden" name="_wp_http_referer" value="/my-account/" />
+                    <button type="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit" name="register" value="Register">Register</button>
+                  </p> -->
+                </form>
+              </div>
+              <div class="animation-container">
+                <div class="animation"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end my-account-section -->
+
+
+
+
+<!-- start instagram-section -->
+<section class=instagram-section>
+<div class=container-1410>
+<div class=row>
+<div class="col col-xs-12">
+<div class=instagram-inner>
+<div class=instagram-text>
+<h3>Follow our instagram</h3>
+<p>@</p>
+</div>
+<div class="instagram-grids clearfix">
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/1.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/3.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/4.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/2.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/5.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+<div class=grid>
+<a href="#"><img data-pagespeed-lazy-src="assets/images/instagram/6.jpg" alt src="../../pagespeed_static/1.JiBnMqyl6S.gif" onload="pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- end instagram-section -->
+<!-- start site-footer -->
+<footer class=site-footer>
+<div class=container-1410>
+<div class="row widget-area">
+<div class="col-lg-4 col-xs-6  widget-col about-widget-col">
+<div class="widget newsletter-widget">
+<div class=inner>
+<h3>Sign Up Now & Get 10% Off</h3>
+<p>Get timely updates from your favorite products</p>
+<form>
+<div class=input-1>
+<input type=email class=form-control placeholder="Email Address *" required>
+</div>
+<div class="submit clearfix">
+<button type=submit>Subcribe</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-xs-6 widget-col">
+<div class="widget contact-widget">
+<h3>Contact info</h3>
+<ul>
+<li>Phone: +91 7907340180</li>
+<!-- <li>Email: <a href="https://template.fullstackdeveloper.co.il/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6d7ccd3d2c1f6dbd7dfda98d5d9db">[email&#160;protected]</a></li> -->
+<!-- <li>Address: 22/1 natinoal city austria, dreem land, Huwai</li> -->
+</ul>
+</div>
+</div>
+<div class="col-lg-2 col-xs-6 widget-col">
+<div class="widget company-widget">
+<h3>Company</h3>
+<ul>
+<li><a href="#">About us</a></li>
+<li><a href="#">Best services</a></li>
+<li><a href="#">Recent insight</a></li>
+<li><a href="#">Shipping guid</a></li>
+<li><a href="#">Privacy policy</a></li>
+</ul>
+</div>
+</div>
+<div class="col-lg-2 col-xs-6 widget-col">
+<div class="widget payment-widget">
+<h3>Payment & Shipping</h3>
+<ul>
+<li><a href="#">Payment method</a></li>
+<li><a href="#">Tearms of use</a></li>
+<li><a href="#">Shipping policy</a></li>
+<li><a href="#">Shipping guide</a></li>
+<li><a href="#">Return policy</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div> <!-- end container -->
+<div class=lower-footer>
+<div class=container-1410>
+<div class=row>
+<div class=col-xs-12>
+<div class="lower-footer-inner clearfix">
+<div>
+<p>&copy; 2021 WP Studio , All Rights Reserved</p>
+</div>
+<div class=social>
+<ul class=clearfix>
+<li><a href="#" title=Facebook>fb</a></li>
+<li><a href="#" title=Twitter>tw</a></li>
+<li><a href="#" title=Instagram>ig</a></li>
+<li><a href="#" title=Pinterest>pr</a></li>
+</ul>
+</div>
+<div class=extra-link>
+<ul>
+<li><a href="#">Privacy </a></li>
+<li><a href="#">Terms</a></li>
+<li><a href="#">Promo T&amp;Cs Apply</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- end site-footer -->
+</div>
+<!-- end of page-wrapper -->
+<!-- All JavaScript files
+    ================================================== -->
+   <script data-cfasync="false" src="https://cdn.jsdelivr.net/npm/email-decode@1.0.0/dist/email-decode.min.js"></script>
+    <script type="text/javascript" data-pagespeed-no-defer>pagespeed.lazyLoadImages.overrideAttributeFunctions();</script>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!-- Plugins for this template -->
+    <script src="{% static 'assets/js/jquery-plugin-collection.js' %}"></script>
+    <!-- Custom script for this template -->
+    <script src="{% static 'assets/js/script.js' %}"></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8a52b9d689187eb6","version":"2024.7.0","r":1,"serverTiming":{"name":{"cfL4":true}},"token":"6c2c808a4221457cb4877ab2c86bf942","b":1}' crossorigin="anonymous"></script>
+    <script>
+      setTimeout(function() {
+          var messages = document.getElementsByClassName('messages');
+          for (var i = 0; i < messages.length; i++) {
+              messages[i].style.display = 'none';
+          }
+      }, 5000); // Hide messages after 5 seconds
+  </script>  
+  </body>
+
+</html>
