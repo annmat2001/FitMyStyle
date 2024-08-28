@@ -85,9 +85,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fitapp_db',
         'USER': 'root',
-        'PASSWORD': 'root@Password123', 
+        'PASSWORD': '12345', 
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '3307',
             }
 }
 
